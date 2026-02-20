@@ -1,3 +1,4 @@
+[repo official link](https://github.com/panaverse/learn-generative-ai/tree/main/05_microservices_all_in_one_platform/15_event_driven/00_eda_challenge#a-challenge-fastapi-event-driven-microservices-development-with-kafka-kraft-docker-compose-and-poetry)
 # A Challenge: FastAPI Event Driven Microservices Development With Kafka, KRaft, Docker Compose, and Poetry 
 
 Event-driven architecture (EDA) is a popular design pattern for building applications that react to events.  
