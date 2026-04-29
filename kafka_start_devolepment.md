@@ -38,22 +38,16 @@ kubectl apply -f kafka-topic.yaml
 kubectl get kafkatopics -n kafka
 
 # Run temporary Kafka CLI pod to list topics (test connectivity)
-kubectl run kafka-test -n kafka --rm -it \
-  --image=quay.io/strimzi/kafka:0.49.1-kafka-4.1.1 \
+kubectl run kafka-test -n kafka \
+  --image=quay.io/strimzi/kafka:latest-kafka-3.7.0 \
   --restart=Never \
-  -- bin/kafka-topics.sh --bootstrap-server task-events-kafka-bootstrap:9092 --list
+  -- sleep 3600
 
 # Check Kafka bootstrap service (connection endpoint)
 kubectl get svc -n kafka | grep bootstrap
 
 # Force delete stuck test pod (if needed)
 kubectl delete pod kafka-test -n kafka --force --grace-period=0
-
-# Run debug pod for manual testing
-kubectl run kafka-test -n kafka \
-  --image=quay.io/strimzi/kafka:latest-kafka-3.7.0 \
-  --restart=Never \
-  -- sleep 3600
 
 # Exec into debug pod shell
 kubectl exec -it kafka-test -n kafka -- bash
