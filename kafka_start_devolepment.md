@@ -44,7 +44,7 @@ kubectl run kafka-test -n kafka \
   -- sleep 3600
 
 ## if this command executed and the output is not ends with "created" then check the pods that is not running 
-kubectl get pods -n kafka
+kubectl get pods -n kafka  
 and delete that is not running with this command
 
 # Force delete stuck test pod (if needed)
