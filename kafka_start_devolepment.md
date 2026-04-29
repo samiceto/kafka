@@ -37,27 +37,23 @@ kubectl apply -f kafka-topic.yaml
 # List Kafka topics managed by Strimzi
 kubectl get kafkatopics -n kafka
 
-# Run Kafka CLI pod safely (no interactive timeout issues)
-kubectl run kafka-test -n kafka \
-  --image=quay.io/strimzi/kafka:latest-kafka-3.7.0 \
-  --restart=Never \
-  --command -- \
-  sh -c "bin/kafka-topics.sh --bootstrap-server task-events-kafka-bootstrap:9092 --list"
-
-# View output from Kafka CLI pod
-kubectl logs kafka-test -n kafka
-
-# Check Kafka bootstrap service (connection endpoint)
-kubectl get svc -n kafka | grep bootstrap
-
-# Force delete stuck test pod (if needed)
-kubectl delete pod kafka-test -n kafka --force --grace-period=0
-
 # Run debug pod for manual testing
 kubectl run kafka-test -n kafka \
   --image=quay.io/strimzi/kafka:latest-kafka-3.7.0 \
   --restart=Never \
   -- sleep 3600
+
+## if this command executed and the output is not ends with "created" then check the pods that is not running 
+kubectl get pods -n kafka
+and delete that is not running with this command
+
+# Force delete stuck test pod (if needed)
+kubectl delete pod kafka-test -n kafka --force --grace-period=0
+
+
+# Check Kafka bootstrap service (connection endpoint)
+kubectl get svc -n kafka | grep bootstrap
+
 
 # Exec into debug pod shell
 kubectl exec -it kafka-test -n kafka -- bash
