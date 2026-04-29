@@ -61,3 +61,11 @@ kubectl run kafka-test -n kafka \
 
 # Exec into debug pod shell
 kubectl exec -it kafka-test -n kafka -- bash
+
+
+# Delete in reverse order
+kubectl delete kafkatopic task-created -n kafka
+kubectl delete kafka task-events -n kafka
+kubectl delete kafkanodepool dual-role -n kafka
+helm uninstall strimzi-kafka-operator -n kafka
+kubectl delete namespace kafka
